@@ -1,0 +1,24 @@
+package org.suganthan.permGen.example;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ClassMetadataLeakSimulator {
+ 
+	private static Map<String, ClassA> classLeaningMap = new HashMap<String, ClassA>();
+	private final static int NB_ITERATIONS_DEFAULT = 50000;
+	
+	public static void main(String[] args) {
+		System.out.println("Class metadata leak simulator");
+		
+		int nbIterations = (args != null && args.length == 1) ? Integer.parseInt(args[0]) : NB_ITERATIONS_DEFAULT;
+		
+		try {
+			for(int i = 0; i < nbIterations; i++){
+				
+			}
+		}
+		
+	}
+
+}

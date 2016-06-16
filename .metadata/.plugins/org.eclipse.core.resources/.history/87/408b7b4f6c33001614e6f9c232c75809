@@ -1,0 +1,15 @@
+package org.suganthan.permGen.example;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ClassMetadataLeakSimulator {
+ 
+	private static Map<String, ClassA> classLeaningMap = new HashMap<String, ClassA>();
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

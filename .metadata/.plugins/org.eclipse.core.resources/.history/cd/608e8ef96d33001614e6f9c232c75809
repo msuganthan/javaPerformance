@@ -1,0 +1,35 @@
+package org.suganthan.permGen.example;
+
+import java.lang.reflect.Proxy;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.HashMap;
+import java.util.Map;
+
+public class ClassMetadataLeakSimulator {
+ 
+	private static Map<String, ClassA> classLeakingMap = new HashMap<String, ClassA>();
+	private final static int NB_ITERATIONS_DEFAULT = 50000;
+	
+	public static void main(String[] args) {
+		System.out.println("Class metadata leak simulator");
+		
+		int nbIterations = (args != null && args.length == 1) ? Integer.parseInt(args[0]) : NB_ITERATIONS_DEFAULT;
+		
+		try {
+			for(int i = 0; i < nbIterations; i++){
+				String ficitiousClassloaderJAR = "file : "+ i + ".jar";
+				
+				URL[] ficitiousClassloaderURL = new URL[] { new URL(ficitiousClassloaderJAR) };
+				
+				URLClassLoader newClassLoader = new URLClassLoader(ficitiousClassloaderURL);
+				
+				ClassA t = (ClassA) Proxy.newProxyInstance(newClassLoader, new Class<?> [] { ClassA.class }, new ClassAInvocationHandler(new ClassAImpl()));
+				
+				classLeakingMap.put(ficitiousClassloaderJAR, t);
+			}
+		}
+		
+	}
+
+}
